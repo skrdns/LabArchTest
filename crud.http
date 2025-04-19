@@ -1,0 +1,28 @@
+### Create a new book
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "The Lord of the Rings",
+  "author": "J.R.R. Tolkien",
+  "isbn": "978-0618260274"
+}
+
+### Get a book by ID
+GET http://localhost:8080/api/books/1
+
+### Get all books
+GET http://localhost:8080/api/books
+
+### Update an existing book
+PUT http://localhost:8080/api/books/1
+Content-Type: application/json
+
+{
+  "title": "The Lord of the Rings: The Fellowship of the Ring",
+  "author": "J.R.R. Tolkien",
+  "isbn": "978-0618260274"
+}
+
+### Delete a book by ID
+DELETE http://localhost:8080/api/books/1
