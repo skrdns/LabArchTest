@@ -6,19 +6,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
 
-    private final BookRepository bookRepository = new InMemoryBookRepository(); // Тимчасова імплементація
+    private final BookRepository bookRepository = new InMemoryBookRepository();
     private final AtomicLong counter = new AtomicLong();
 
+    public BookController() {
+        // Додаємо дві стартові книги
+        bookRepository.save(new Book(null, "1984", "George Orwell", "9780451524935"));
+        bookRepository.save(new Book(null, "Brave New World", "Aldous Huxley", "9780060850524"));
+    }
+
     private class InMemoryBookRepository implements BookRepository {
-        private final java.util.Map<Long, Book> books = new java.util.HashMap<>();
+        private final Map<Long, Book> books = new HashMap<>();
 
         @Override
         public Book save(Book book) {
@@ -36,7 +42,7 @@ public class BookController {
 
         @Override
         public List<Book> findAll() {
-            return new java.util.ArrayList<>(books.values());
+            return new ArrayList<>(books.values());
         }
 
         @Override
